@@ -1,0 +1,53 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body{
+    background-color: #ece1d4;
+}
+
+.text-light-custom{
+    color: #ece1d4;
+}
+
+.text-dark-custom{
+    color: #39352f;
+}
+
+.bg-light-cust{
+    background-color: #ece1d4;
+}
+
+.bg-dark-custom{
+    background-color: #39352f;
+}
+
+.hover-custom:hover{
+    background-color: #ece1d4;
+    color: #39352f;
+    cursor: pointer;
+}
+
+.hover-custom:hover .hover-text-custom {
+    color: #39352f;
+}
+
+.font-titolo {
+    font-family: "Medula One", system-ui;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.font-descrizione {
+  font-family: "Quicksand", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.font-sottotitolo {
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+}
