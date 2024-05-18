@@ -7,6 +7,7 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\ValidationException;
 
 class ProductController extends Controller
@@ -96,21 +97,19 @@ class ProductController extends Controller
                 'image.max' => 'La dimensione massima del file è 2048 KB.',
             ]);
             
-
             // Salva l'immagine su disco
             $imagePath = null;
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
                 $imageName = time() . '.' . $image->getClientOriginalExtension();
-                $image->move(public_path('images'), $imageName);
-                $imagePath = 'images/' . $imageName;
+                $imagePath = $image->storeAs('images', $imageName, 'public');
             }
-
+    
             // Crea il prodotto
             $productData = $request->except('image');
             $productData['image'] = $imagePath;
             $product = Product::create($productData);
-
+    
             return response()->json([
                 'message' => $product->name . ' caricato con successo',
                 'product' => $product
@@ -138,8 +137,12 @@ class ProductController extends Controller
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
                 $imageName = time() . '.' . $image->getClientOriginalExtension();
-                $image->move(public_path('images'), $imageName);
-                $imagePath = 'images/' . $imageName;
+                $imagePath = $image->storeAs('images', $imageName, 'public');
+
+                // Elimina l'immagine precedente se presente
+                if ($product->image) {
+                    Storage::disk('public')->delete($product->image);
+                }
 
                 $product->image = $imagePath;
             }
@@ -165,11 +168,9 @@ class ProductController extends Controller
             
             // Verifica se il prodotto ha un'immagine
             if ($product->image) {
-                // Rimuovi l'immagine dal disco
-                if (file_exists(public_path($product->image))) {
-                    unlink(public_path($product->image));
-                }
-                
+                // Elimina l'immagine dal disco
+                Storage::disk('public')->delete($product->image);
+
                 // Aggiorna il campo 'image' del prodotto a null
                 $product->image = null;
                 $product->save();

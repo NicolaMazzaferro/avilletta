@@ -42,21 +42,20 @@ class CategoryController extends Controller
                 'image.mimes' => 'Il file caricato deve essere di uno dei seguenti formati: jpeg, png, jpg o gif.',
                 'image.max' => 'La dimensione massima del file è 2048 KB.',
             ]);
-
-             // Salva l'immagine su disco
-             $imagePath = null;
-             if ($request->hasFile('image')) {
-                 $image = $request->file('image');
-                 $imageName = time() . '.' . $image->getClientOriginalExtension();
-                 $image->move(public_path('images'), $imageName);
-                 $imagePath = 'images/' . $imageName;
-             }
-
-             // Crea la Categoria
+    
+            // Salva l'immagine su disco
+            $imagePath = null;
+            if ($request->hasFile('image')) {
+                $image = $request->file('image');
+                $imageName = time() . '.' . $image->getClientOriginalExtension();
+                $imagePath = $image->storeAs('images', $imageName, 'public');
+            }
+    
+            // Crea la Categoria
             $categoryData = $request->except('image');
             $categoryData['image'] = $imagePath;
             $category = Category::create($categoryData);
-
+    
             return response()->json(['message' => 'Categoria creata con successo', 'category' => $category], 201);
         } catch (\Illuminate\Validation\ValidationException $e) {
             return response()->json(['error' => $e->errors()], 422);
@@ -93,18 +92,19 @@ class CategoryController extends Controller
                 'image.mimes' => 'Il file caricato deve essere di uno dei seguenti formati: jpeg, png, jpg o gif.',
                 'image.max' => 'La dimensione massima del file è 2048 KB.',
             ]);
-
+    
+            // Aggiorna i campi della categoria tranne l'immagine
+            $category->update($request->except('image'));
+    
+            // Se è stata caricata una nuova immagine, aggiorna il percorso dell'immagine
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
                 $imageName = time() . '.' . $image->getClientOriginalExtension();
-                $image->move(public_path('images'), $imageName);
-                $imagePath = 'images/' . $imageName;
-    
+                $imagePath = $image->storeAs('images', $imageName, 'public');
                 $category->image = $imagePath;
+                $category->save();
             }
     
-            $category->update($request->except('image'));
-
             return response()->json(['message' => 'Categoria aggiornata con successo', 'category' => $category]);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return response()->json(['message' => 'Categoria non trovata'], 404);
@@ -132,17 +132,17 @@ class CategoryController extends Controller
     {
         try {
             $category = Category::findOrFail($id);
-
+    
             // Verifica se l'immagine esiste
             if ($category->image) {
                 // Elimina l'immagine dal disco
                 if (Storage::disk('public')->exists($category->image)) {
                     Storage::disk('public')->delete($category->image);
                 }
-
+    
                 // Aggiorna il percorso dell'immagine nel database a null
                 $category->update(['image' => null]);
-
+    
                 return response()->json(['message' => 'Immagine della categoria eliminata con successo']);
             } else {
                 return response()->json(['message' => 'La categoria non ha un\'immagine'], 404);
