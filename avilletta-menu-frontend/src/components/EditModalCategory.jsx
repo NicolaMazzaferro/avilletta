@@ -169,7 +169,7 @@ export default function EditModalCategory({ category, selectedCategoryId, onClos
                                 {previewImage ? (
                                         <img src={previewImage} alt="Anteprima immagine" className="object-cover w-full h-52" />
                                     ) : (
-                                        <img src={category.image ? `http://localhost:8000/${category.image}` : defaultImage} alt="Anteprima immagine" className="object-cover w-full h-52" />
+                                        <img src={category.image ? `http://menu.avillettapizzeria.it/${category.image}` : defaultImage} alt="Anteprima immagine" className="object-cover w-full h-52" />
                                     )}
                                 </div> 
 

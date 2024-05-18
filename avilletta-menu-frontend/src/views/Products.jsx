@@ -35,7 +35,7 @@ export default function Products() {
                         <div
                             className="min-w-[40%] bg-cover"
                             style={{
-                                backgroundImage: `url(${product.image ? `http://localhost:8000/${product.image}` : defaultImage})`,
+                                backgroundImage: `url(${product.image ? `http://menu.avillettapizzeria.it/${product.image}` : defaultImage})`,
                                 backgroundSize: 'cover',
                                 backgroundPosition: 'center',
                                 minHeight: '100px'
