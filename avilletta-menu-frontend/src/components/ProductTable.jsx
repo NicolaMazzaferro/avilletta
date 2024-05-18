@@ -135,7 +135,7 @@ export const ProductTable = ({ products, setProducts, pagination, page, setPage,
                                         <th scope="row" className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">{product.name}</th>
                                         <td className="px-4 py-3">{product.category.name}</td>
                                         <td className="px-4 py-3">
-                                            <img className="rounded-full w-14 h-14" src={product.image ? `http://api.menu.avillettapizzeria.it/api/${product.image}` : defaultImage} alt="Product Image" style={{ maxWidth: '100px' }} />
+                                            <img className="rounded-full w-14 h-14" src={product.image ? `http://api.menu.avillettapizzeria.it/storage/${product.image}` : defaultImage} alt="Product Image" style={{ maxWidth: '100px' }} />
                                         </td>
                                         <td className="px-4 py-3">{product.description}</td>
                                         <td className="px-4 py-3">{product.price.toLocaleString('it-IT', {style: 'currency', currency: 'EUR'})}</td>

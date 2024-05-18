@@ -128,7 +128,7 @@ export const CategoryTable = ({ categories, setCategories, handleShowProducts, f
                                     <tr key={index} className="border-b dark:border-gray-700">
                                         <th scope="row" className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">{category.name}</th>
                                         <td className="px-4 py-3">
-                                            <img className="rounded-full w-14 h-14" src={category.image ? `http://api.menu.avillettapizzeria.it/api/${category.image}` : defaultImage} alt="Product Image" style={{ maxWidth: '100px' }} />
+                                            <img className="rounded-full w-14 h-14" src={category.image ? `http://api.menu.avillettapizzeria.it/storage/${category.image}` : defaultImage} alt="Product Image" style={{ maxWidth: '100px' }} />
                                         </td>
 
 

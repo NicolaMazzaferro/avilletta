@@ -62,7 +62,7 @@ export default function DropdownFilter({ categories, setSelectedCategory, page, 
                       {category.name}
                     </a>
                     <a>
-                      <img src={category.image ? `http://api.menu.avillettapizzeria.it/api/${category.image}` : defaultImage} alt={category.name} className='w-10 h-10 rounded-full' />
+                      <img src={category.image ? `http://api.menu.avillettapizzeria.it/storage/${category.image}` : defaultImage} alt={category.name} className='w-10 h-10 rounded-full' />
                     </a>
                   </div>
                 )}

@@ -25,7 +25,7 @@ export default function Categories() {
                     <div key={index} className="w-full md:w-1/3 mb-6">
                         <Link to={`/products/${category.name}`}>
                             <div className="m-3 font-semibold text-center rounded-3xl shadow-md flex flex-col justify-between h-52">
-                                <img src={category.image ? `http://menu.avillettapizzeria.it/${category.image}` : defaultImage} alt={category.name} className="w-full h-40 object-cover rounded-t-3xl" />
+                                <img src={category.image ? `http://api.menu.avillettapizzeria.it/storage/${category.image}` : defaultImage} alt={category.name} className="w-full h-40 object-cover rounded-t-3xl" />
                                 <button className="bg-dark-custom text-light-custom text-3xl px-8 py-2 font-sottotitolo uppercase tracking-widest mt-auto w-full">{category.name}</button>
                             </div>
                         </Link>
