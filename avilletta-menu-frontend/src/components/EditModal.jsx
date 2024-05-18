@@ -220,7 +220,7 @@ export default function EditModal({ product, productId, onCloseModal, fetchProdu
                                 {previewImage ? (
                                         <img src={previewImage} alt="Anteprima immagine" className="object-cover w-full h-52" />
                                     ) : (
-                                        <img src={product.image ? `http://api.menu.avillettapizzeria.it/storage/${product.image}` : defaultImage} alt="Anteprima immagine" className="object-cover w-full h-52" />
+                                        <img src={product.image ? `https://api.menu.avillettapizzeria.it/storage/${product.image}` : defaultImage} alt="Anteprima immagine" className="object-cover w-full h-52" />
                                     )}
                                 </div> 
 
