@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const axiosInstance = axios.create({
-  baseURL: 'http://localhost:8000/api/',
+  baseURL: 'http://menu.avillettapizzeria.it/api/',
 });
 
 export default axiosInstance;
